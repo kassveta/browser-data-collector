@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+
+  <title>Browser Data Collector</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      background: #f3f6fb;
+      color: #172033;
+      font: 16px/1.6 system-ui, sans-serif;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 28px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px #17203312;
+    }
+
+    h1 { margin-top: 0; line-height: 1.2; }
+
+    .notice {
+      padding: 16px;
+      background: #eef5ff;
+      border-left: 4px solid #2563eb;
+      border-radius: 8px;
+    }
+
+    label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 20px 0;
+    }
+
+    input { margin-top: 7px; }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 18px;
+      background: #2563eb;
+      color: white;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button.secondary { background: #475569; }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    #status { min-height: 26px; color: #475569; }
+
+    pre {
+      background: #101827;
+      color: #dbeafe;
+      padding: 20px;
+      border-radius: 12px;
+      overflow: auto;
+      max-height: 650px;
+      font-size: 13px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .footnote { color: #64748b; font-size: 14px; }
+  </style>
+
+  <script src="./script.js" defer></script>
+</head>
+
+<body>
+  <main>
+    <h1>Browser Data Collector</h1>
+
+    <p>
+      Демонстрация сбора технических параметров браузера и устройства.
+    </p>
+
+    <div class="notice">
+      После нажатия кнопки страница прочитает доступные характеристики:
+      User-Agent, язык, экран, часовой пояс, параметры процессора,
+      памяти, сети и WebGL.
+      Скрипт не отправляет результаты на сервер.
+      Камера, микрофон и геолокация не запрашиваются.
+    </div>
+
+    <label>
+      <input type="checkbox" id="consent">
+      <span>
+        Я согласен/согласна на сбор и отображение технических
+        параметров в этой вкладке.
+      </span>
+    </label>
+
+    <div class="buttons">
+      <button id="collect" disabled>Собрать данные</button>
+
+      <button id="download" class="secondary" disabled>
+        Скачать JSON
+      </button>
+
+      <button id="clear" class="secondary">
+        Очистить результат
+      </button>
+    </div>
+
+    <p id="status" role="status" aria-live="polite">
+      Ожидание согласия.
+    </p>
+
+    <pre id="output">Здесь появится результат.</pre>
+
+    <p class="footnote">
+      null означает, что параметр недоступен, не поддерживается
+      или его чтение ограничено браузером.
+      Некоторые значения могут быть округлены или изменены
+      настройками защиты приватности.
+    </p>
+
+    <p class="footnote">
+      Результаты не отправляются кодом этой страницы.
+      При этом хостинг GitHub Pages ведёт собственные
+      журналы обращений, включая IP-адрес посетителя.
+    </p>
+  </main>
+</body>
+</html>
